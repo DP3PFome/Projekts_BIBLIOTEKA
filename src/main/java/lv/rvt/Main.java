@@ -1,6 +1,16 @@
 package lv.rvt;
+import java.io.File;
 
 import java.util.*;
+
+/*
+DATABASE: 
+NAME    AUTHOR  YEAR    ID 
+  
+ 
+
+
+ */
 
 public class Main 
 {
@@ -8,4 +18,9 @@ public class Main
     {
         System.out.println("Hello Biblioteka!");
     }
+
+
+
+
+
 }
