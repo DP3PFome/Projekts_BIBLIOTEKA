@@ -4,6 +4,8 @@ import java.io.File;
 
 import java.util.*;
 
+import javax.print.DocFlavor.STRING;
+
 import lv.rvt.tools.Helper;
 
 /*
@@ -22,17 +24,17 @@ public class Main
         BufferedReader reader = Helper.getReader("data.csv");
 
         StringBuilder content = new StringBuilder();
-        
+
         String line;
-        
+        //new NAME[];
+        //
         while ((line = reader.readLine()) != null) {
             content.append(line);
             content.append(System.lineSeparator());
         }
-    
-        System.out.println(
-            content.toString()
-        );
+        String x =content.toString();
+        
+        System.out.println(x);
 
 
 
