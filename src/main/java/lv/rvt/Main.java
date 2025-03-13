@@ -1,8 +1,12 @@
 package lv.rvt;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import java.util.*;
+import java.util.jar.Attributes.Name;
 
 import javax.print.DocFlavor.STRING;
 
@@ -48,12 +52,48 @@ public class Main
             System.out.println("Years: " + years);
             System.out.println("IDs: " + ID);
 
-
-    
-
-
-
-
+            
+            
+            
+            /*String Name ="";
+            String Author ="";
+            String Years ="";
+            String id ="";*/
+            
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("Name: ");
+            String Name = scanner.nextLine();
+            System.out.print("Author: ");
+            String Author = scanner.nextLine();
+            System.out.print("Years: ");
+            String Years = scanner.nextLine();
+            System.out.print("ID: ");
+            String id = scanner.nextLine();
+            
+            String all = Name + ", " + Author ", " + Years + ", " + id; 
+            
+            BufferedWriter writer = Helper.getWriter(line, null);
+           
+            /*System.out.println("Names: " + Name);
+            System.out.println("Authors: " + Author);
+            System.out.println("Years: " + Years);
+            System.out.println("IDs: " + id);*/
+            
+            
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+            
+            
+            
             reader.close();
 }
 }
