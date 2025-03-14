@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-
+import java.nio.file.StandardOpenOption;
 import java.util.*;
 import java.util.jar.Attributes.Name;
 
@@ -21,6 +21,11 @@ NAME    AUTHOR  YEAR    ID
 
  */
 
+
+
+
+
+ 
 public class Main 
 {
     public static void main( String[] args ) throws Exception
@@ -70,19 +75,16 @@ public class Main
             System.out.print("ID: ");
             String id = scanner.nextLine();
             
-            String all = Name + ", " + Author ", " + Years + ", " + id; 
+            String all = Name + ", " + Author +", " + Years + ", " + id; 
             
-            BufferedWriter writer = Helper.getWriter(line, null);
+            BufferedWriter writer = Helper.getWriter("data.csv", StandardOpenOption.APPEND);
            
             /*System.out.println("Names: " + Name);
             System.out.println("Authors: " + Author);
             System.out.println("Years: " + Years);
             System.out.println("IDs: " + id);*/
-            
-            
-           
-           
-           
+            writer.newLine();
+            writer.write(all);
            
            
            
@@ -94,6 +96,9 @@ public class Main
             
             
             
+            
+            
+            writer.close();
             reader.close();
 }
 }
