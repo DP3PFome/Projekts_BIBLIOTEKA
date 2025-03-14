@@ -6,13 +6,14 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.jar.Attributes.Name;
 
-public class work_with_file {
+public class WorkWithFiles {
 
 
 
-public static BufferedWriter write(List<String> names,List<String> authors,List<String> years,List<String> ID){
+public static BufferedWriter write(List<String> names,List<String> idList){
         Scanner scanner = new Scanner(System.in);
-        for (true) {
+        String all="";
+        while (true) {
             System.out.print("Name: ");
             String Name = scanner.nextLine();
             System.out.print("Author: ");
@@ -22,28 +23,27 @@ public static BufferedWriter write(List<String> names,List<String> authors,List<
             System.out.print("ID: ");
             String id = scanner.nextLine();
             
-            for(int i = 0; i<len(names);i++){
-                if (names[i]==Name){
+            for(int i = 0; i< names.size();i++) {
+                if (names.get(i).equals(Name)) {
                     System.out.println("Name cant be same");
                     continue;
-            }   
-            for(int i = 0; i<len(ID);i++){
-                if (ID[i]==id){
+                }   
+                if (idList.get(i).equals(id)){ // FIx
                     System.out.println("ID cant be same");
                     continue;
-            }   
-            break;
+                
+                }   
+                all = Name + ", " + Author +", " + Years + ", " + id; 
+                break;
             }
             
         }        
-        String all = Name + ", " + Author +", " + Years + ", " + id; 
             BufferedWriter writer = Helper.getWriter("data.csv", StandardOpenOption.APPEND);
+            
             writer.newLine();
             writer.write(all);          
 
          
             writer.close();
-}
-}
-
-}
+        }
+    }

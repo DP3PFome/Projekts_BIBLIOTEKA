@@ -11,6 +11,7 @@ import java.util.jar.Attributes.Name;
 import javax.print.DocFlavor.STRING;
 
 import lv.rvt.tools.Helper;
+import lv.rvt.tools.WorkWithFiles;
 
 /*
 DATABASE: 
@@ -25,7 +26,7 @@ NAME    AUTHOR  YEAR    ID
 
 
 
- 
+
 public class Main 
 {
     public static void main( String[] args ) throws Exception
@@ -51,19 +52,23 @@ public class Main
             }
 
             
-
+System.out.println("Name    Authors     Years       ID      ");
+System.out.println("---------------------------------------------------------");
+            for(int i=0; i < names.size(); i++ ){
+                System.out.print(names[i]);
+            }
+        
             System.out.println("Names: " + names);
             System.out.println("Authors: " + authors);
             System.out.println("Years: " + years);
             System.out.println("IDs: " + ID);
 
+
+
+            WorkWithFiles.write(names, ID);
             
             
-            
-            /*String Name ="";
-            String Author ="";
-            String Years ="";
-            String id ="";*/
+/*
             
             Scanner scanner = new Scanner(System.in);
             System.out.print("Name: ");
@@ -79,26 +84,23 @@ public class Main
             
             BufferedWriter writer = Helper.getWriter("data.csv", StandardOpenOption.APPEND);
            
-            /*System.out.println("Names: " + Name);
-            System.out.println("Authors: " + Author);
-            System.out.println("Years: " + Years);
-            System.out.println("IDs: " + id);*/
+      
             writer.newLine();
             writer.write(all);
-           
-           
-           
-           
-           
-           
-           
-           
-            
-            
-            
-            
-            
             writer.close();
+           
+           */
+           
+           
+           
+           
+           
+           
+            
+            
+            
+            
+            
             reader.close();
 }
 }
