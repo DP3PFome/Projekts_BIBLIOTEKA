@@ -1,49 +1,54 @@
 package lv.rvt.tools;
 
 import java.io.BufferedWriter;
+import java.io.IOException;
 import java.nio.file.StandardOpenOption;
 import java.util.List;
 import java.util.Scanner;
-import java.util.jar.Attributes.Name;
 
 public class WorkWithFiles {
 
-
-
-public static BufferedWriter write(List<String> names,List<String> idList){
+    public static void write(List<String> names, List<String> idList) {
         Scanner scanner = new Scanner(System.in);
-        String all="";
-        while (true) {
-            System.out.print("Name: ");
-            String Name = scanner.nextLine();
-            System.out.print("Author: ");
-            String Author = scanner.nextLine();
-            System.out.print("Years: ");
-            String Years = scanner.nextLine();
-            System.out.print("ID: ");
-            String id = scanner.nextLine();
-            
-            for(int i = 0; i< names.size();i++) {
-                if (names.get(i).equals(Name)) {
-                    System.out.println("Name cant be same");
-                    continue;
-                }   
-                if (idList.get(i).equals(id)){ // FIx
-                    System.out.println("ID cant be same");
-                    continue;
+
+        try (BufferedWriter writer = Helper.getWriter("data.csv", StandardOpenOption.APPEND)) {
+            while (true) {
+                System.out.print("Name: ");
+                String name = scanner.nextLine();
+                System.out.print("Author: ");
+                String author = scanner.nextLine();
+                System.out.print("Years: ");
+                String years = scanner.nextLine();
+                System.out.print("ID: ");
+                String id = scanner.nextLine();
+
                 
-                }   
-                all = Name + ", " + Author +", " + Years + ", " + id; 
+                if (names.contains(name)) {
+                    System.out.println("Name can't be the same. Try again.");
+                    continue;
+                }
+                
+                if (idList.contains(id)) {
+                    System.out.println("ID can't be the same. Try again.");
+                    continue;
+                }
+                
+                String all = name + ", " + author + ", " + years + ", " + id;
+
+                // Запись в файл
+                writer.newLine();
+                writer.write(all);
+                writer.flush();
+                
+                // Добавление нового name и id в списки
+                names.add(name);
+                idList.add(id);
+
+                System.out.println("Data successfully saved to file.");
                 break;
             }
-            
-        }        
-            BufferedWriter writer = Helper.getWriter("data.csv", StandardOpenOption.APPEND);
-            
-            writer.newLine();
-            writer.write(all);          
-
-         
-            writer.close();
+        } catch (IOException e) {
+            System.out.println("Error writing to file: " + e.getMessage());
         }
     }
+}

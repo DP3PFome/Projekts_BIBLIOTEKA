@@ -51,7 +51,7 @@ public class Main
                 }
             }
 
-            
+    /*       
 System.out.println("Name    Authors     Years       ID      ");
 System.out.println("---------------------------------------------------------");
             for(int i=0; i < names.size(); i++ ){
@@ -64,7 +64,7 @@ System.out.println("---------------------------------------------------------");
             System.out.println("IDs: " + ID);
 
 
-
+*/
             WorkWithFiles.write(names, ID);
             
             
