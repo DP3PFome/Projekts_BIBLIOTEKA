@@ -35,14 +35,12 @@ public class WorkWithFiles {
                 
                 String all = name + ", " + author + ", " + years + ", " + id;
 
-                // Запись в файл
+             
                 writer.newLine();
                 writer.write(all);
-                writer.flush();
                 
-                // Добавление нового name и id в списки
-                names.add(name);
-                idList.add(id);
+           
+                
 
                 System.out.println("Data successfully saved to file.");
                 break;
@@ -51,4 +49,34 @@ public class WorkWithFiles {
             System.out.println("Error writing to file: " + e.getMessage());
         }
     }
+
+
+//----------------------------------------------------------------------------------------------------------
+
+
+    public static void print(List<String> names,List<String> authors, List<String> years,List<String> idList){
+        System.out.println("Name    Authors     Years       ID      ");
+        System.out.println("---------------------------------------------------------");
+            for(int i=0; i < names.size(); i++ ){
+                System.out.print(names.get(i));
+                System.out.print("  ");
+                System.out.print(authors.get(i));
+                System.out.print("  ");
+                System.out.print(years.get(i));
+                System.out.print("  ");
+                System.out.print(idList.get(i));
+                System.out.println();
+                
+            }
+        
+    }
+
+    // -------------------------------------------------------------------------
+
+
+
+    public static void delete(List<String> names,List<String> authors, List<String> years,List<String> idList){
+        
+    }
+
 }

@@ -30,10 +30,26 @@ NAME    AUTHOR  YEAR    ID
 public class Main 
 {
     public static void main( String[] args ) throws Exception
-    {
+    {   
+        Scanner scanner = new Scanner(System.in);
         
+        while(true){
+            System.out.println();
+            System.out.println();
+            
+            System.out.println("If you wont get out program write  0");
+            System.out.println("If you wont check data write  1");
+            System.out.println("If you wont write in data write  2");
+            
+            System.out.print(": ");
+            int x = scanner.nextInt();
+            
+            if(x == 0){
+                break;
+            }
+            
             BufferedReader reader = Helper.getReader("data.csv");
-
+            
             List<String> names = new ArrayList<>();
             List<String> authors = new ArrayList<>();
             List<String> years = new ArrayList<>();
@@ -51,56 +67,23 @@ public class Main
                 }
             }
 
-    /*       
-System.out.println("Name    Authors     Years       ID      ");
-System.out.println("---------------------------------------------------------");
-            for(int i=0; i < names.size(); i++ ){
-                System.out.print(names[i]);
+            if(x == 1){
+                WorkWithFiles.print(names, authors, years, ID);
+            }else if(x == 2){
+                WorkWithFiles.write(names, ID);
             }
-        
-            System.out.println("Names: " + names);
-            System.out.println("Authors: " + authors);
-            System.out.println("Years: " + years);
-            System.out.println("IDs: " + ID);
-
-
-*/
-            WorkWithFiles.write(names, ID);
-            
-            
-/*
-            
-            Scanner scanner = new Scanner(System.in);
-            System.out.print("Name: ");
-            String Name = scanner.nextLine();
-            System.out.print("Author: ");
-            String Author = scanner.nextLine();
-            System.out.print("Years: ");
-            String Years = scanner.nextLine();
-            System.out.print("ID: ");
-            String id = scanner.nextLine();
-            
-            String all = Name + ", " + Author +", " + Years + ", " + id; 
-            
-            BufferedWriter writer = Helper.getWriter("data.csv", StandardOpenOption.APPEND);
-           
-      
-            writer.newLine();
-            writer.write(all);
-            writer.close();
-           
-           */
-           
-           
-           
-           
-           
-           
-            
-            
-            
-            
             
             reader.close();
+        }       
+           
+           
+           
+           
+           
+            
+            
+            
+            
+            
 }
 }
