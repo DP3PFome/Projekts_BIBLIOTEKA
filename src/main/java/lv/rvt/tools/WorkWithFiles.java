@@ -8,6 +8,14 @@ import java.util.Scanner;
 
 public class WorkWithFiles {
 
+    public static final String RESET = "\u001B[0m";
+    public static final String RED = "\u001B[31m";
+    public static final String GREEN = "\u001B[32m";
+    public static final String YELLOW = "\u001B[33m";
+    public static final String BLUE = "\u001B[34m";
+    public static final String PURPLE = "\u001B[35m";
+    public static final String CYAN = "\u001B[36m";
+
     public static void write(List<String> names, List<String> idList) {
         Scanner scanner = new Scanner(System.in);
 
@@ -55,16 +63,16 @@ public class WorkWithFiles {
 
 
     public static void print(List<String> names,List<String> authors, List<String> years,List<String> idList){
-        System.out.println("Name    Authors     Years       ID      ");
+        System.out.println(PURPLE+" Name"+RESET+"    "+RED+"Authors"+RESET+"     Years"+RESET+"       ID"+RESET+"      ");
         System.out.println("---------------------------------------------------------");
             for(int i=0; i < names.size(); i++ ){
                 System.out.print(names.get(i));
+                System.out.print(RED +"  "+RESET);
+                System.out.print(RED+authors.get(i)+RESET);
                 System.out.print("  ");
-                System.out.print(authors.get(i));
-                System.out.print("  ");
-                System.out.print(years.get(i));
-                System.out.print("  ");
-                System.out.print(idList.get(i));
+                System.out.print(GREEN+years.get(i)+RESET);
+                System.out.print( "  ");
+                System.out.print(BLUE+idList.get(i)+RESET);
                 System.out.println();
                 
             }
