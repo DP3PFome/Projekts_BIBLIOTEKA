@@ -1,31 +1,15 @@
 package lv.rvt;
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.StandardOpenOption;
 import java.util.*;
-import java.util.jar.Attributes.Name;
-
-import javax.print.DocFlavor.STRING;
-
 import lv.rvt.tools.Helper;
 import lv.rvt.tools.WorkWithFiles;
 
 /*
 DATABASE: 
 NAME    AUTHOR  YEAR    ID 
-  
  
 
-
  */
-
-
-
-
-
 
 public class Main 
 {
@@ -40,6 +24,7 @@ public class Main
             System.out.println("If you wont get out program write  0");
             System.out.println("If you wont check data write  1");
             System.out.println("If you wont write in data write  2");
+            System.out.println("If you wont delete in data write 3");
             
             System.out.print(": ");
             int x = scanner.nextInt();
@@ -57,7 +42,8 @@ public class Main
 
             String line;
             reader.readLine(); 
-            while ((line = reader.readLine()) != null) {
+            while ((line = reader.readLine()) !=null) {
+                if (line != ""){
                 String[] parts = line.split(",");
                 if (parts.length == 4) {
                     names.add(parts[0].trim());
@@ -65,6 +51,7 @@ public class Main
                     years.add(parts[2].trim());
                     ID.add(parts[3].trim());
                 }
+            }
             }
 
             if(x == 1){
@@ -75,15 +62,6 @@ public class Main
             
             reader.close();
         }       
-           
-           
-           
-           
-           
             
-            
-            
-            
-            
-}
+    }
 }
