@@ -2,6 +2,8 @@ package lv.rvt.tools;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.List;
 import java.util.Scanner;
@@ -83,8 +85,27 @@ public class WorkWithFiles {
 
 
 
-    public static void delete(List<String> names,List<String> authors, List<String> years,List<String> idList){
+    public static void delete(int lineToReplace){
+         String filePath = "data.csv"; 
+        String newContent = "";
+
+        List<String> lines = Files.readAllLines(Paths.get(filePath));
+    if (lineToReplace==1) {
+        lineToReplace=lineToReplace+1;
+
         
     }
+    if (lineToReplace >= 0 && lineToReplace < lines.size()) {
+            lines.set(lineToReplace, newContent); 
+            System.out.println("data delite");
+        } else {
+            System.out.println("Error dont faund this line.");
+        }
+    }
+
+
+
+
+
 
 }
