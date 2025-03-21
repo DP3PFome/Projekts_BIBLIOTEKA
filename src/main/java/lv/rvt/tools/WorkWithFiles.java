@@ -63,10 +63,10 @@ public class WorkWithFiles {
 
 
     public static void print(List<String> names,List<String> authors, List<String> years,List<String> idList){
-        System.out.println(PURPLE+" Name"+RESET+"    "+RED+"Authors"+RESET+"     Years"+RESET+"       ID"+RESET+"      ");
+        System.out.println(PURPLE+" Name"+RESET+"    "+RED+"Authors"+RESET+"     "+GREEN+"Years"+RESET+"       "+BLUE+"ID"+RESET+"      ");
         System.out.println("---------------------------------------------------------");
             for(int i=0; i < names.size(); i++ ){
-                System.out.print(names.get(i));
+                System.out.print(PURPLE+names.get(i)+RESET);
                 System.out.print(RED +"  "+RESET);
                 System.out.print(RED+authors.get(i)+RESET);
                 System.out.print("  ");
