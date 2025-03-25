@@ -8,6 +8,8 @@ import java.nio.file.StandardOpenOption;
 import java.util.List;
 import java.util.Scanner;
 
+import lv.rvt.Book;
+
 public class WorkWithFiles {
 
     public static final String RESET = "\u001B[0m";
@@ -18,7 +20,7 @@ public class WorkWithFiles {
     public static final String PURPLE = "\u001B[35m";
     public static final String CYAN = "\u001B[36m";
 
-    public static void write(List<String> names, List<String> idList) {
+    public static void addBook() {
         Scanner scanner = new Scanner(System.in);
 
         try (BufferedWriter writer = Helper.getWriter("data.csv", StandardOpenOption.APPEND)) {
@@ -28,26 +30,26 @@ public class WorkWithFiles {
                 System.out.print("Author: ");
                 String author = scanner.nextLine();
                 System.out.print("Years: ");
-                String years = scanner.nextLine();
+                String year = scanner.nextLine();
                 System.out.print("ID: ");
                 String id = scanner.nextLine();
 
                 
-                if (names.contains(name)) {
+                if (name.contains(name)) {
                     System.out.println("Name can't be the same. Try again.");
                     continue;
                 }
                 
-                if (idList.contains(id)) {
+                if (id.contains(id)) {
                     System.out.println("ID can't be the same. Try again.");
                     continue;
                 }
                 
-                String all = name + ", " + author + ", " + years + ", " + id;
+                Book book = new Book(id, name, author, year);
 
              
                 writer.newLine();
-                writer.write(all);
+                writer.write(book.toCsvRow());
                 
            
                 
@@ -85,27 +87,28 @@ public class WorkWithFiles {
 
 
 
-    public static void delete(int lineToReplace){
-         String filePath = "data.csv"; 
+    public static void delete(int lineToReplace) {
+        System.out.println(lineToReplace);
+        String filePath = "data.csv"; 
         String newContent = "";
-
-        List<String> lines = Files.readAllLines(Paths.get(filePath));
-    if (lineToReplace==1) {
-        lineToReplace=lineToReplace+1;
-
-        
-    }
-    if (lineToReplace >= 0 && lineToReplace < lines.size()) {
-            lines.set(lineToReplace, newContent); 
-            System.out.println("data delite");
-        } else {
-            System.out.println("Error dont faund this line.");
+    
+        try {
+            List<String> lines = Files.readAllLines(Paths.get(filePath));
+           
+                lineToReplace = lineToReplace + 1;
+           
+    
+            if (lineToReplace >= 0 && lineToReplace < lines.size()) {
+                lines.set(lineToReplace, newContent); 
+                Files.write(Paths.get(filePath), lines, StandardOpenOption.TRUNCATE_EXISTING);
+                System.out.println("Data deleted successfully.");
+            } else {
+                System.out.println("Error: Line not found.");
+            }
+        } catch (IOException e) {
+            System.out.println("Error reading or writing to file: " + e.getMessage());
         }
     }
-
-
-
-
 
 
 }
