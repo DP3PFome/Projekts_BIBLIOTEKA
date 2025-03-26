@@ -39,7 +39,7 @@ public class Main
             List<String> authors = new ArrayList<>();
             List<String> years = new ArrayList<>();
             List<String> ID = new ArrayList<>();
-            List<Book> books = new Book<>(); 
+            List<Book> books = new ArrayList<>();
 
 
             String line;
@@ -52,7 +52,7 @@ public class Main
                     authors.add(parts[1].trim());
                     years.add(parts[2].trim());
                     ID.add(parts[3].trim());
-                    books.add(parts[3].trim(), parts[0].trim(), parts[1].trim(), parts[2].trim()); 
+                    books.add(new Book( parts[3].trim(), parts[0].trim(), parts[1].trim(), parts[2].trim())); 
                 }
             }
             }
