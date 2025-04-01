@@ -54,11 +54,11 @@ public class WorkWithFiles {
     // ----------------------------------------------------------------------------------------------------------
 
     public static void print(List<Book> bookList) {
-        Colors Ui = new Colors();
-        System.out.println(Ui.PURPLE(" Name") + "    " + Ui.RED("Authors") + "     " + Ui.GREEN("Years") + "       "
+        Colors Ui = new Colors();//              
+        System.out.println(Ui.PURPLE("Name") + "    " + Ui.RED("Authors") + "     " + Ui.GREEN("Years") + "       "
                 + Ui.BLUE("ID")
                 + "      ");
-        System.out.println("---------------------------------------------------------");
+        System.out.println(Ui.YELLOW("---------------------------------------------------------"));
         for (int i = 0; i < bookList.size(); i++) {
             System.out.print(Ui.PURPLE(bookList.get(i).getNmae()));
             System.out.print("  ");
@@ -68,52 +68,51 @@ public class WorkWithFiles {
             System.out.print("  ");
             System.out.print(Ui.BLUE(bookList.get(i).getID()));
             System.out.println();
+            
 
         }
+        
 
     }
 
+    public static ArrayList<Book> getBookList() throws Exception {
+        BufferedReader reader = Helper.getReader("data.csv");
 
+        ArrayList<Book> personList = new ArrayList<>();
+        String line;
 
-    public static ArrayList<Book> getPersonList() throws Exception {
-         BufferedReader reader = Helper.getReader("data.csv");
- 
-         ArrayList<Book> personList = new ArrayList<>();
-         String line;
- 
-         reader.readLine(); // Ignorējam titul rindiņu        
-         while ((line = reader.readLine()) != null) {
-             String[] parts = line.split(",");
- 
-             String name = parts[0];
-             String author = String.valueOf(parts[1]);
-             String year = String.valueOf(parts[2]);
-             String id = String.valueOf(parts[3]);
-            
- 
-             Book person = new Book(name,author,year,id);
-             personList.add(person);
-         }
-         return personList;
-     }
+        reader.readLine(); // Ignorējam titul rindiņu
+        while ((line = reader.readLine()) != null) {
+            String[] parts = line.split(",");
+
+            String name = parts[0];
+            String author = String.valueOf(parts[1]);
+            String year = String.valueOf(parts[2]);
+            String id = String.valueOf(parts[3]);
+
+            Book person = new Book(name, author, year, id);
+            personList.add(person);
+        }
+        return personList;
+    }
 
     // -------------------------------------------------------------------------
 
- public void delete(Book book) throws Exception {    
-         ArrayList<Book> bookList = getPersonList();
-         bookList.removeIf(p -> p.equals(book));
- 
-         // StandardOpenOption.TRUNCATE_EXISTING - izdzēš visu saturu
-         BufferedWriter writer = Helper.getWriter("data.csv", StandardOpenOption.TRUNCATE_EXISTING);
-         
-         writer.write("NAME, AUTHOR, YEAR, ID "); // Header row
-         writer.newLine();
-         
-         // Pārrakstam failu ar jaunajiem datiem
-         for (Book p : bookList) {
-             writer.write(p.toCsvRow());
-             writer.newLine();
-         }
-         writer.close();
- }
+    public static void delete(Book book) throws Exception {
+        ArrayList<Book> bookList = getBookList();
+        bookList.removeIf(p -> p.equals(book));
+
+        // StandardOpenOption.TRUNCATE_EXISTING - izdzēš visu saturu
+        BufferedWriter writer = Helper.getWriter("data.csv", StandardOpenOption.TRUNCATE_EXISTING);
+
+        writer.write("NAME, AUTHOR, YEAR, ID "); // Header row
+        writer.newLine();
+
+        // Pārrakstam failu ar jaunajiem datiem
+        for (Book p : bookList) {
+            writer.write(p.toCsvRow());
+            writer.newLine();
+        }
+        writer.close();
+    }
 }

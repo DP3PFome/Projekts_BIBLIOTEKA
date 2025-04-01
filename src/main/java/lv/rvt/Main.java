@@ -29,9 +29,9 @@ public class Main {
             System.out.println("3 - " + Ui.RED("delete") + " data");
 
             System.out.print(": ");
-            int x = scanner.nextInt();
-
-            if (x == 0) {
+            String commandNumber = scanner.nextLine(); // "3"
+            
+            if (commandNumber.equals("0")) {
                 break;
             }
 
@@ -53,25 +53,24 @@ public class Main {
                         authors.add(parts[1].trim());
                         years.add(parts[2].trim());
                         ID.add(parts[3].trim());
-                        books.add(new Book(parts[3].trim(), parts[0].trim(), parts[1].trim(), parts[2].trim()));
+                        books.add(new Book(parts[0].trim(), parts[1].trim(), parts[2].trim(), parts[3].trim()));
                     }
                 }
             }
 
-            if (x == 1) {
+            if (commandNumber.equals("1")) {
                 WorkWithFiles.print(books);
-            } else if (x == 2) {
+            } else if (commandNumber.equals("2")) {
                 WorkWithFiles.addBook();
-            } else if (x == 3) {
-                int c = 0;
+            } else if (commandNumber.equals("3")) {
+                WorkWithFiles.print(books);
                 System.out.print("Enter book ID which must be deleted: ");
-                String z = scanner.nextLine();
-                for (int i = 0; i < ID.size(); i++) {
-                    if (ID.get(i) == z) {
-                        c = i;
+                String bookId = scanner.nextLine();
+                for (int i = 0; i < books.size(); i++) {
+                    if (books.get(i).getID().equals(bookId)) {
+                        WorkWithFiles.delete(books.get(i));
                     }
                 }
-                WorkWithFiles.delete(books.get(c));
             }
 
             reader.close();
