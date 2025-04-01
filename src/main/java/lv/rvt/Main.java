@@ -69,6 +69,7 @@ public class Main {
                 for (int i = 0; i < books.size(); i++) {
                     if (books.get(i).getID().equals(bookId)) {
                         WorkWithFiles.delete(books.get(i));
+                        break;
                     }
                 }
             }
