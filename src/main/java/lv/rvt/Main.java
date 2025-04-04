@@ -30,6 +30,7 @@ public class Main {
             System.out.println("1 - Check data");
             System.out.println("2 - Write data");
             System.out.println("3 - " + Ui.RED("delete") + " data");
+            System.out.println("4 - sorting");
 
             System.out.print(": ");
             String commandNumber = scanner.nextLine(); // "3"
@@ -64,17 +65,19 @@ public class Main {
             if (commandNumber.equals("1")) {
                 WorkWithFiles.print(books);
             } else if (commandNumber.equals("2")) {
-                WorkWithFiles.addBook();
+                WorkWithFiles.addBook(books);
             } else if (commandNumber.equals("3")) {
                 WorkWithFiles.print(books);
                 System.out.print("Enter book ID which must be deleted: ");
                 String bookId = scanner.nextLine();
                 for (int i = 0; i < books.size(); i++) {
                     if (books.get(i).getID().equals(bookId)) {
-                        WorkWithFiles.delete(books.get(i));
+                        WorkWithFiles.delete(books.get(i),books);
                         break;
                     }
                 }
+            }else if (commandNumber.equals("4")){
+                books.sort(null);
             }
 
             reader.close();

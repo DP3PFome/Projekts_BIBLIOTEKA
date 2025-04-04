@@ -14,26 +14,26 @@ import lv.rvt.Book;
 
 public class WorkWithFiles {
 
-    public static void addBook() {
+    public static void addBook(List<Book> bookList) {
         Scanner scanner = new Scanner(System.in);
-
+        Colors Ui = new Colors();
         try (BufferedWriter writer = Helper.getWriter("data.csv", StandardOpenOption.APPEND)) {
             while (true) {
-                System.out.print("Name: ");
+                System.out.print(Ui.PURPLE("Name: "));
                 String name = scanner.nextLine();
-                System.out.print("Author: ");
+                System.out.print(Ui.RED("Author: "));
                 String author = scanner.nextLine();
-                System.out.print("Years: ");
+                System.out.print(Ui.GREEN("Years: "));
                 String year = scanner.nextLine();
-                System.out.print("ID: ");
+                System.out.print(Ui.BLUE("ID: "));
                 String id = scanner.nextLine();
 
-                if (name.contains(name)) {
+                if (bookList.contains(name)) {
                     System.out.println("Name can't be the same. Try again.");
                     continue;
                 }
 
-                if (id.contains(id)) {
+                if (bookList.contains(id)) {
                     System.out.println("ID can't be the same. Try again.");
                     continue;
                 }
@@ -75,31 +75,12 @@ public class WorkWithFiles {
 
     }
 
-    public static ArrayList<Book> getBookList() throws Exception {
-        BufferedReader reader = Helper.getReader("data.csv");
 
-        ArrayList<Book> personList = new ArrayList<>();
-        String line;
-
-        reader.readLine(); // Ignorējam titul rindiņu
-        while ((line = reader.readLine()) != null) {
-            String[] parts = line.split(",");
-
-            String name = parts[0];
-            String author = String.valueOf(parts[1]);
-            String year = String.valueOf(parts[2]);
-            String id = String.valueOf(parts[3]);
-
-            Book person = new Book(name, author, year, id);
-            personList.add(person);
-        }
-        return personList;
-    }
 
     // -------------------------------------------------------------------------
 
-    public static void delete(Book book) throws Exception {
-        ArrayList<Book> bookList = getBookList();
+    public static void delete(Book book,List<Book>bookList) throws Exception {
+       
         bookList.removeIf(p -> p.equals(book));
 
         // StandardOpenOption.TRUNCATE_EXISTING - izdzēš visu saturu
@@ -113,6 +94,7 @@ public class WorkWithFiles {
             writer.write(p.toCsvRow());
             writer.newLine();
         }
+        System.out.println("Book with ID: "+book.getID()+" was removed");
         writer.close();
     }
 }
