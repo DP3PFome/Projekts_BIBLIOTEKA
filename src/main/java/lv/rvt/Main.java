@@ -24,7 +24,10 @@ public class Main {
         Colors Ui = new Colors();
 
         while (true) {
+            for (int i = 0; i < 50; ++i)
+                System.out.println();
             System.out.println();
+
             System.out.println();
 
             System.out.println("0 - Exit the program");
@@ -33,6 +36,7 @@ public class Main {
             System.out.println("3 - " + Ui.RED("delete") + " data");
             System.out.println("4 - sorting");
             System.out.println("5 - founding");
+            System.out.println("6 - Other function");
 
             System.out.print(": ");
             String commandNumber = scanner.nextLine(); // "3"
@@ -70,6 +74,7 @@ public class Main {
                 WorkWithFiles.addBook(books);
             } else if (commandNumber.equals("3")) {
                 WorkWithFiles.print(books);
+                System.out.println("If wont exit write 0");
                 System.out.print("Enter book ID which must be deleted: ");
                 String bookId = scanner.nextLine();
                 for (int i = 0; i < books.size(); i++) {
@@ -93,6 +98,8 @@ public class Main {
                 }
                 WorkWithFiles.print(books);
             } else if (commandNumber.equals("5")) {
+                WorkWithFiles.Founding(books);
+            } else if (commandNumber.equals("6")) {
                 WorkWithFiles.Founding(books);
             } else {
                 System.out.println(Ui.RED("Unknown command"));

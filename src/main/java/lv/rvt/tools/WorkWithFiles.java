@@ -33,7 +33,7 @@ public class WorkWithFiles {
                     continue;
                 }
 
-                if (bookList.contains(id)) {
+                if (bookList.contains(id)|| id.equals("0")) {
                     System.out.println("ID can't be the same. Try again.");
                     continue;
                 }
@@ -102,19 +102,27 @@ public class WorkWithFiles {
         List<Book> bookList2 = new ArrayList<>();
 
         String found = scanner.nextLine();
-        if (bookList.contains(found)) {
-            for (int i = 0; i < bookList.size(); i++) {
-                if (bookList.get(i).getID().contains(found)) {
-                    bookList2.add(bookList.get(i));
-
-                }
-
+        for (Book book : bookList) {
+            if (book.getID().toLowerCase().contains(found) ||
+                book.getNamae().toLowerCase().contains(found) ||
+                book.getAuthor().toLowerCase().contains(found) ||
+                book.getYear().toLowerCase().contains(found)) {
+                bookList2.add(book);
             }
-            print(bookList2);
-        } else {
-            System.out.println("Dont Found");
-
         }
+        if (bookList2.isEmpty()){
+            System.out.println("Dont Found");
+        }else{
+            print(bookList2);
+        }
+
+        
+    }
+
+    //------------------------------------------------------------------------------------
+    public static void otherFunction(List<Book> bookList){
+System.out.println("0-go back");
+
     }
 
 }
