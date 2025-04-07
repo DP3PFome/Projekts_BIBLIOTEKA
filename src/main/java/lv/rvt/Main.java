@@ -2,6 +2,7 @@ package lv.rvt;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.time.Year;
 import java.util.*;
 
 import lv.rvt.tools.Colors;
@@ -16,9 +17,9 @@ https://github.com/rvt-student-demo/java-intro-VadimsMalickis/commit/b3d869dadbe
  */
 
 public class Main {
-    
+
     public static void main(String[] args) throws Exception {
-      
+
         Scanner scanner = new Scanner(System.in);
         Colors Ui = new Colors();
 
@@ -31,10 +32,11 @@ public class Main {
             System.out.println("2 - Write data");
             System.out.println("3 - " + Ui.RED("delete") + " data");
             System.out.println("4 - sorting");
+            System.out.println("5 - founding");
 
             System.out.print(": ");
             String commandNumber = scanner.nextLine(); // "3"
-            
+
             if (commandNumber.equals("0")) {
                 break;
             }
@@ -72,12 +74,28 @@ public class Main {
                 String bookId = scanner.nextLine();
                 for (int i = 0; i < books.size(); i++) {
                     if (books.get(i).getID().equals(bookId)) {
-                        WorkWithFiles.delete(books.get(i),books);
+                        WorkWithFiles.delete(books.get(i), books);
                         break;
                     }
                 }
-            }else if (commandNumber.equals("4")){
-                books.sort(null);
+            } else if (commandNumber.equals("4")) {
+                System.out.print("Write down what kind of sorting you want(" + Ui.PURPLE("Name") + ","
+                        + Ui.RED("Author") + "," + Ui.GREEN("Year") + "," + Ui.BLUE("ID") + "): ");
+                String typesort = scanner.nextLine();
+                if (typesort.equals("ID")) {
+                    books.sort(Comparator.comparing(Book::getID));
+                } else if (typesort.equals("Name")) {
+                    books.sort(Comparator.comparing(Book::getNamae));
+                } else if (typesort.equals("Year")) {
+                    books.sort(Comparator.comparing(Book::getYear));
+                } else if (typesort.equals("Author")) {
+                    books.sort(Comparator.comparing(Book::getAuthor));
+                }
+                WorkWithFiles.print(books);
+            } else if (commandNumber.equals("5")) {
+                WorkWithFiles.Founding(books);
+            } else {
+                System.out.println(Ui.RED("Unknown command"));
             }
 
             reader.close();

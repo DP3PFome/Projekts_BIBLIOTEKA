@@ -22,7 +22,7 @@ public class Book {
         return id;
     }
 
-    public String getNmae() {
+    public String getNamae() {
         return name;
     }
 
