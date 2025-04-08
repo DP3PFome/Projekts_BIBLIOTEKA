@@ -22,10 +22,10 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
         Colors Ui = new Colors();
-
+        for (int i = 0; i < 50; ++i){
+            System.out.println();
+        }
         while (true) {
-            for (int i = 0; i < 50; ++i)
-                System.out.println();
             System.out.println();
 
             System.out.println();
@@ -100,7 +100,7 @@ public class Main {
             } else if (commandNumber.equals("5")) {
                 WorkWithFiles.Founding(books);
             } else if (commandNumber.equals("6")) {
-                WorkWithFiles.Founding(books);
+                WorkWithFiles.otherFunction(books);
             } else {
                 System.out.println(Ui.RED("Unknown command"));
             }

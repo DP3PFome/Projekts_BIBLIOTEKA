@@ -33,7 +33,7 @@ public class WorkWithFiles {
                     continue;
                 }
 
-                if (bookList.contains(id)|| id.equals("0")) {
+                if (bookList.contains(id) || id.equals("0")) {
                     System.out.println("ID can't be the same. Try again.");
                     continue;
                 }
@@ -103,25 +103,49 @@ public class WorkWithFiles {
 
         String found = scanner.nextLine();
         for (Book book : bookList) {
-            if (book.getID().toLowerCase().contains(found) ||
-                book.getNamae().toLowerCase().contains(found) ||
-                book.getAuthor().toLowerCase().contains(found) ||
-                book.getYear().toLowerCase().contains(found)) {
+            if (book.getID().contains(found) ||
+                    book.getNamae().contains(found) ||
+                    book.getAuthor().contains(found) ||
+                    book.getYear().contains(found)) {
                 bookList2.add(book);
             }
         }
-        if (bookList2.isEmpty()){
+        if (bookList2.isEmpty()) {
             System.out.println("Dont Found");
-        }else{
+        } else {
             print(bookList2);
         }
 
-        
     }
 
-    //------------------------------------------------------------------------------------
-    public static void otherFunction(List<Book> bookList){
-System.out.println("0-go back");
+    // ------------------------------------------------------------------------------------
+    public static void otherFunction(List<Book> bookList) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println("0-go back");
+        System.out.println("1 - How match books");
+        System.out.println("2 - average year of production");
+
+        System.out.print(": ");
+        String commandNumber = scanner.nextLine();
+
+        if (commandNumber.equals("0")) {
+
+        } else if (commandNumber.equals("1")) {
+            System.out.println("In Library: " + bookList.size() + " books");
+
+        }else if (commandNumber.equals("2")) {
+
+            int vid=0;
+         for (int i=0;i<bookList.size();i++){
+        vid=vid+Integer.parseInt(bookList.get(i).getYear());
+        }
+        vid=vid/bookList.size();
+        System.out.println("average year of production: "+vid);
+
+        }
 
     }
 
