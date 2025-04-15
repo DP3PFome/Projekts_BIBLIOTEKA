@@ -22,7 +22,7 @@ public class Main {
 
         Scanner scanner = new Scanner(System.in);
         Colors Ui = new Colors();
-        for (int i = 0; i < 50; ++i){
+        for (int i = 0; i < 50; ++i) {
             System.out.println();
         }
         while (true) {
@@ -31,15 +31,16 @@ public class Main {
             System.out.println();
 
             System.out.println("0 - Exit the program");
-            System.out.println("1 - Check data");
-            System.out.println("2 - Write data");
-            System.out.println("3 - " + Ui.RED("delete") + " data");
-            System.out.println("4 - sorting");
-            System.out.println("5 - founding");
-            System.out.println("6 - Other function");
+            System.out.println("1 - " + Ui.BLUE("Check") + " data");
+            System.out.println("2 - " + Ui.YELLOW("sorting"));
+            System.out.println("3 - " + Ui.PURPLE("founding"));
+            System.out.println("4 - " + Ui.GRAY("Other function"));
+            System.out.println("5 - " + Ui.CYAN("Enter in acaunt"));
+            System.out.println("6 - by book");// ????????????????????????????????????????????????????????????????
+            System.out.println("Ad - admin functions");
 
             System.out.print(": ");
-            String commandNumber = scanner.nextLine(); // "3"
+            String commandNumber = scanner.nextLine();
 
             if (commandNumber.equals("0")) {
                 break;
@@ -47,10 +48,6 @@ public class Main {
 
             BufferedReader reader = Helper.getReader("data.csv");
 
-            List<String> names = new ArrayList<>();
-            List<String> authors = new ArrayList<>();
-            List<String> years = new ArrayList<>();
-            List<String> ID = new ArrayList<>();
             List<Book> books = new ArrayList<>();
 
             String line;
@@ -59,10 +56,7 @@ public class Main {
                 if (line != "") {
                     String[] parts = line.split(",");
                     if (parts.length == 4) {
-                        names.add(parts[0].trim());
-                        authors.add(parts[1].trim());
-                        years.add(parts[2].trim());
-                        ID.add(parts[3].trim());
+                        
                         books.add(new Book(parts[0].trim(), parts[1].trim(), parts[2].trim(), parts[3].trim()));
                     }
                 }
@@ -71,19 +65,6 @@ public class Main {
             if (commandNumber.equals("1")) {
                 WorkWithFiles.print(books);
             } else if (commandNumber.equals("2")) {
-                WorkWithFiles.addBook(books);
-            } else if (commandNumber.equals("3")) {
-                WorkWithFiles.print(books);
-                System.out.println("If wont exit write 0");
-                System.out.print("Enter book ID which must be deleted: ");
-                String bookId = scanner.nextLine();
-                for (int i = 0; i < books.size(); i++) {
-                    if (books.get(i).getID().equals(bookId)) {
-                        WorkWithFiles.delete(books.get(i), books);
-                        break;
-                    }
-                }
-            } else if (commandNumber.equals("4")) {
                 System.out.print("Write down what kind of sorting you want(" + Ui.PURPLE("Name") + ","
                         + Ui.RED("Author") + "," + Ui.GREEN("Year") + "," + Ui.BLUE("ID") + "): ");
                 String typesort = scanner.nextLine();
@@ -97,10 +78,20 @@ public class Main {
                     books.sort(Comparator.comparing(Book::getAuthor));
                 }
                 WorkWithFiles.print(books);
-            } else if (commandNumber.equals("5")) {
+            } else if (commandNumber.equals("3")) { //Founding
                 WorkWithFiles.Founding(books);
-            } else if (commandNumber.equals("6")) {
+            } else if (commandNumber.equals("4")) { //otherFunction
                 WorkWithFiles.otherFunction(books);
+            }else if(commandNumber.equals("5")) {  // Enter in acaunt
+
+            } else if (commandNumber.equals("Ad")) {
+                System.out.print("Ievadit parole: ");
+                String pasword = scanner.nextLine();
+                if (pasword.equals("zxc")) {
+                    AdminMain.main(args);
+
+                }
+
             } else {
                 System.out.println(Ui.RED("Unknown command"));
             }

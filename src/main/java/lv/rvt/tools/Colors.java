@@ -8,11 +8,16 @@ public class Colors {
     public static final String BLUE = "\u001B[34m";
     public static final String PURPLE = "\u001B[35m";
     public static final String CYAN = "\u001B[36m";
+    public static final String GRAY = "\u001B[2m";
 
     // Shift + Alt + F
     public String RED(String p) {
         return RED + p + RESET;
     }
+    public String GRAY(String p) {
+        return GRAY + p + RESET;
+    }
+    
 
     public String GREEN(String p) {
         return GREEN + p + RESET;

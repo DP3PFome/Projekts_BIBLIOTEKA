@@ -13,7 +13,7 @@ import java.util.Scanner;
 import lv.rvt.Book;
 
 public class WorkWithFiles {
-
+    // pievinošana jaunu gramatu
     public static void addBook(List<Book> bookList) {
         Scanner scanner = new Scanner(System.in);
         Colors Ui = new Colors();
@@ -52,29 +52,28 @@ public class WorkWithFiles {
     }
 
     // ----------------------------------------------------------------------------------------------------------
-
+    // printšana
     public static void print(List<Book> bookList) {
         Colors Ui = new Colors();//
-        System.out.println(Ui.PURPLE("Name") + "    " + Ui.RED("Authors") + "     " + Ui.GREEN("Years") + "       "
-                + Ui.BLUE("ID")
-                + "      ");
-        System.out.println(Ui.YELLOW("---------------------------------------------------------"));
+        System.out.printf("%-40s %-40s %-20s %-15s%n",
+                Ui.PURPLE("Name"), 
+                Ui.RED("Authors"), 
+                Ui.GREEN("Years"),
+                Ui.BLUE("ID"));
+        System.out.println(Ui.YELLOW("----------------------------------------------------------------------------------"));
         for (int i = 0; i < bookList.size(); i++) {
-            System.out.print(Ui.PURPLE(bookList.get(i).getNamae()));
-            System.out.print("  ");
-            System.out.print(Ui.RED(bookList.get(i).getAuthor()));
-            System.out.print("  ");
-            System.out.print(Ui.GREEN(bookList.get(i).getYear()));
-            System.out.print("  ");
-            System.out.print(Ui.BLUE(bookList.get(i).getID()));
-            System.out.println();
+            System.out.printf("%-40s %-40s %-20s %-15s%n",
+                    Ui.PURPLE(bookList.get(i).getNamae()),
+                    Ui.RED(bookList.get(i).getAuthor()),
+                    Ui.GREEN(bookList.get(i).getYear()),
+                    Ui.BLUE(bookList.get(i).getID()));
 
         }
 
     }
 
     // -------------------------------------------------------------------------
-
+    // delite metode
     public static void delete(Book book, List<Book> bookList) throws Exception {
 
         bookList.removeIf(p -> p.equals(book));
@@ -95,6 +94,7 @@ public class WorkWithFiles {
     }
 
     // -----------------------------------------------------------------------------------
+    // atbilde par meklešanu
     public static void Founding(List<Book> bookList) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("what you find");
@@ -119,6 +119,7 @@ public class WorkWithFiles {
     }
 
     // ------------------------------------------------------------------------------------
+    // papild funkcijas
     public static void otherFunction(List<Book> bookList) {
         Scanner scanner = new Scanner(System.in);
         System.out.println();
@@ -136,14 +137,14 @@ public class WorkWithFiles {
         } else if (commandNumber.equals("1")) {
             System.out.println("In Library: " + bookList.size() + " books");
 
-        }else if (commandNumber.equals("2")) {
+        } else if (commandNumber.equals("2")) {
 
-            int vid=0;
-         for (int i=0;i<bookList.size();i++){
-        vid=vid+Integer.parseInt(bookList.get(i).getYear());
-        }
-        vid=vid/bookList.size();
-        System.out.println("average year of production: "+vid);
+            int vid = 0;
+            for (int i = 0; i < bookList.size(); i++) {
+                vid = vid + Integer.parseInt(bookList.get(i).getYear());
+            }
+            vid = vid / bookList.size();
+            System.out.println("average year of production: " + vid);
 
         }
 
