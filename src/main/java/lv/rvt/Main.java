@@ -7,7 +7,9 @@ import java.util.*;
 
 import lv.rvt.tools.Colors;
 import lv.rvt.tools.Helper;
+import lv.rvt.tools.User;
 import lv.rvt.tools.WorkWithFiles;
+import lv.rvt.tools.WorkWithUser;
 
 /*
 DATABASE: 
@@ -19,6 +21,7 @@ https://github.com/rvt-student-demo/java-intro-VadimsMalickis/commit/b3d869dadbe
 public class Main {
 
     public static void main(String[] args) throws Exception {
+        boolean acauntStatus=false;
 
         Scanner scanner = new Scanner(System.in);
         Colors Ui = new Colors();
@@ -35,7 +38,7 @@ public class Main {
             System.out.println("2 - " + Ui.YELLOW("sorting"));
             System.out.println("3 - " + Ui.PURPLE("founding"));
             System.out.println("4 - " + Ui.GRAY("Other function"));
-            System.out.println("5 - " + Ui.CYAN("Enter in acaunt"));
+            System.out.println("5 - " + Ui.CYAN("Enter in accoun"));
             System.out.println("6 - by book");// ????????????????????????????????????????????????????????????????
             System.out.println("Ad - admin functions");
 
@@ -56,11 +59,33 @@ public class Main {
                 if (line != "") {
                     String[] parts = line.split(",");
                     if (parts.length == 4) {
-                        
+
                         books.add(new Book(parts[0].trim(), parts[1].trim(), parts[2].trim(), parts[3].trim()));
                     }
                 }
             }
+
+            reader.close();
+            // ==================================================================================================================
+
+            BufferedReader readers = Helper.getReader("peson.csv");
+
+            List<User> users = new ArrayList<>();
+
+            String lines;
+            readers.readLine();
+            while ((lines = readers.readLine()) != null) {
+                if (lines != "") {
+                    String[] parts = lines.split(",");
+                    if (parts.length == 2) {
+
+                        users.add(new User(parts[0].trim(), parts[1].trim()));
+                    }
+                }
+            }
+
+            readers.close();
+            // ===================================================================================================================
 
             if (commandNumber.equals("1")) {
                 WorkWithFiles.print(books);
@@ -78,11 +103,20 @@ public class Main {
                     books.sort(Comparator.comparing(Book::getAuthor));
                 }
                 WorkWithFiles.print(books);
-            } else if (commandNumber.equals("3")) { //Founding
+            } else if (commandNumber.equals("3")) { // Founding
                 WorkWithFiles.Founding(books);
-            } else if (commandNumber.equals("4")) { //otherFunction
+            } else if (commandNumber.equals("4")) { // otherFunction
                 WorkWithFiles.otherFunction(books);
-            }else if(commandNumber.equals("5")) {  // Enter in acaunt
+            } else if (commandNumber.equals("5")) { // Enter in acaunt
+                System.out.println("0 - Create account");
+                String chuse = scanner.nextLine();
+                if (chus.equals("0")) {
+
+                    WorkWithUser.print(users);
+                } else if (chuse.equals("1")) {
+                    acauntStatus = WorkWithUser.EnterAC(users);
+                }
+            } else if (commandNumber.equals("6")) {
 
             } else if (commandNumber.equals("Ad")) {
                 System.out.print("Ievadit parole: ");
@@ -96,7 +130,6 @@ public class Main {
                 System.out.println(Ui.RED("Unknown command"));
             }
 
-            reader.close();
         }
 
     }

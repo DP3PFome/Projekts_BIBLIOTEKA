@@ -8,10 +8,13 @@ import java.util.Scanner;
 
 import lv.rvt.tools.Colors;
 import lv.rvt.tools.Helper;
+import lv.rvt.tools.User;
 import lv.rvt.tools.WorkWithFiles;
+import lv.rvt.tools.WorkWithUser;
 
 public class AdminMain {
     public static void main(String[] args) throws Exception {
+        
 
         Scanner scanner = new Scanner(System.in);
         Colors Ui = new Colors();
@@ -31,7 +34,7 @@ public class AdminMain {
             System.out.println("5 - " + Ui.PURPLE("founding"));
             System.out.println("6 - " + Ui.GRAY("Other function"));
             System.out.println("7 - Check person");
-            System.out.print("Ad - admin functions");
+
 
             System.out.print(": ");
             String commandNumber = scanner.nextLine(); // "3"
@@ -55,6 +58,28 @@ public class AdminMain {
                     }
                 }
             }
+
+            reader.close();
+            // ==================================================================================================================
+
+            BufferedReader readers = Helper.getReader("peson.csv");
+
+            List<User> users = new ArrayList<>();
+
+            String lines;
+            readers.readLine();
+            while ((lines = readers.readLine()) != null) {
+                if (lines != "") {
+                    String[] parts = lines.split(",");
+                    if (parts.length == 2) {
+
+                        users.add(new User(parts[0].trim(), parts[1].trim()));
+                    }
+                }
+            }
+
+            readers.close();
+            // ===================================================================================================================
 
             if (commandNumber.equals("1")) {
                 WorkWithFiles.print(books);
@@ -89,11 +114,16 @@ public class AdminMain {
                 WorkWithFiles.Founding(books);
             } else if (commandNumber.equals("6")) {
                 WorkWithFiles.otherFunction(books);
+            } else if (commandNumber.equals("7")) {
+            System.out.println("0 - Create account");
+                String chuse = scanner.nextLine();
+        
+        
+              
             } else {
                 System.out.println(Ui.RED("Unknown command"));
             }
 
-            reader.close();
         }
     }
 }

@@ -56,11 +56,12 @@ public class WorkWithFiles {
     public static void print(List<Book> bookList) {
         Colors Ui = new Colors();//
         System.out.printf("%-40s %-40s %-20s %-15s%n",
-                Ui.PURPLE("Name"), 
-                Ui.RED("Authors"), 
+                Ui.PURPLE("Name"),
+                Ui.RED("Authors"),
                 Ui.GREEN("Years"),
                 Ui.BLUE("ID"));
-        System.out.println(Ui.YELLOW("----------------------------------------------------------------------------------"));
+        System.out.println(
+                Ui.YELLOW("----------------------------------------------------------------------------------"));
         for (int i = 0; i < bookList.size(); i++) {
             System.out.printf("%-40s %-40s %-20s %-15s%n",
                     Ui.PURPLE(bookList.get(i).getNamae()),
@@ -146,6 +147,21 @@ public class WorkWithFiles {
             vid = vid / bookList.size();
             System.out.println("average year of production: " + vid);
 
+        }
+
+    }
+
+    public static void Bybook(User acauntStatus) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Witch book wont buy");
+        System.out.print(": ");
+        String commandNumber = scanner.nextLine();
+        if (acauntStatus.getNick().equals("")) {
+            System.out.println("Please enter in acaunt");
+        } else if (acauntStatus.getPasword().equals("")) {
+            System.out.println("Please enter in acaunt");
+        } else {
+            System.out.println("Your book " + commandNumber + " has Buy");
         }
 
     }
