@@ -26,7 +26,7 @@ public class AdminMain {
 
             System.out.println();
 
-            System.out.println("0 - Exit the program");
+            System.out.println("0 - Exit the admin function");
             System.out.println("1 - " + Ui.BLUE("Check") + " data");
             System.out.println("2 - " + Ui.GREEN("Write ") + "data");
             System.out.println("3 - " + Ui.RED("delete") + " data");
@@ -81,11 +81,11 @@ public class AdminMain {
             readers.close();
             // ===================================================================================================================
 
-            if (commandNumber.equals("1")) {
+            if (commandNumber.equals("1")) { // Check data
                 WorkWithFiles.print(books);
-            } else if (commandNumber.equals("2")) {
+            } else if (commandNumber.equals("2")) { // Write data
                 WorkWithFiles.addBook(books);
-            } else if (commandNumber.equals("3")) {
+            } else if (commandNumber.equals("3")) { // delete data
                 WorkWithFiles.print(books);
                 System.out.println("If wont exit write 0");
                 System.out.print("Enter book ID which must be deleted: ");
@@ -115,8 +115,7 @@ public class AdminMain {
             } else if (commandNumber.equals("6")) {
                 WorkWithFiles.otherFunction(books);
             } else if (commandNumber.equals("7")) {
-            System.out.println("0 - Create account");
-                String chuse = scanner.nextLine();
+                WorkWithUser.print(users);
         
         
               

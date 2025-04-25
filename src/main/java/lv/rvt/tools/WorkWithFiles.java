@@ -151,17 +151,26 @@ public class WorkWithFiles {
 
     }
 
-    public static void Bybook(User acauntStatus) {
+    public static void Bybook(boolean acauntStatus, List<Book> bookList) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Witch book wont buy");
         System.out.print(": ");
         String commandNumber = scanner.nextLine();
-        if (acauntStatus.getNick().equals("")) {
-            System.out.println("Please enter in acaunt");
-        } else if (acauntStatus.getPasword().equals("")) {
-            System.out.println("Please enter in acaunt");
+
+        if (acauntStatus = true) {
+            Book foundBook = null;
+            for (Book book : bookList) {
+                if (book.getNamae().equals(commandNumber)) {
+                    foundBook = book;
+                    System.out.println("Your book " + commandNumber + " has Buy");
+                    break;
+                }
+            }
+            if (foundBook == null) {
+                System.out.println("Book not found!");
+            }
         } else {
-            System.out.println("Your book " + commandNumber + " has Buy");
+            System.out.println("Enter in acaunt");
         }
 
     }

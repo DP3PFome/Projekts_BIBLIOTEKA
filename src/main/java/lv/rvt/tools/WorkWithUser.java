@@ -26,60 +26,64 @@ public class WorkWithUser {
 
     }
 
+    public static boolean EnterAC(List<User> userList) {
+        Scanner scanner = new Scanner(System.in);
+        while (true) {
+            System.out.println("0 - exite");
+            System.out.print("Name: ");
+            String name = scanner.nextLine();
+            System.out.print("Pasword: ");
+            String parole = scanner.nextLine();
+            for (int i = 0; i < userList.size(); i++) {
+                if (userList.get(i).getNick().equals(name)) {
+                    if (userList.get(i).getPasword().equals(parole)) {
+                        System.out.println("Enter in ");
+                        return true;
+                    }
+                }
 
-public boolean EnterAC(List<User> userList){
-    Scanner scanner = new Scanner(System.in);
-    System.out.print("Name: ");
-    String name = scanner.nextLine();
-    System.out.print("Pasword: ");
-    String parole = scanner.nextLine();
-    for (int i = 0; i < userList.size(); i++) {
-        if (userList.get(i).getNick().equals(name)) {
-            if (userList.get(i).getPasword().equals(parole)) {
-                System.out.println("Enter in ");
-                return true;
+            }
+            System.out.println("Pasword or Name is incorect");
+            if (name.equals("0")) {
+                break;
             }
         }
-
+        return false;
     }
-    System.out.println("Pasword or Name is incorect");
-    return false;
-}
 
     // Izveidosana persona
     public static void addUser(List<User> userList) {
         Scanner scanner = new Scanner(System.in);
         Colors Ui = new Colors();
-      
 
-            try (BufferedWriter writer = Helper.getWriter("data.csv", StandardOpenOption.APPEND)) {
-                while (true) {
-                    System.out.print(Ui.PURPLE("Name: "));
-                    String name = scanner.nextLine();
-                    System.out.print(Ui.BLUE("Pasword: "));
-                    String parle = scanner.nextLine();
+        try (BufferedWriter writer = Helper.getWriter("peson.csv", StandardOpenOption.APPEND)) {
+            while (true) {
+                System.out.print(Ui.PURPLE("Name: "));
+                String name = scanner.nextLine();
+                System.out.print(Ui.BLUE("Pasword: "));
+                String pasword = scanner.nextLine();
 
-                    if (userList.contains(name) || name.equals("")) {
-                        System.out.println("Name can't be the same. Try again.");
-                        continue;
-                    }
-
-                    if (userList.contains(parle) || parle.equals("")) {
-                        System.out.println("Pasword can't be the same. Try again.");
-                        continue;
-                    }
-
-                    User book = new User(name, parle);
-
-                    writer.newLine();
-                    writer.write(book.toCsvROW());
-
-                    System.out.println("User has addet.");
-                    break;
+                if (userList.contains(name) || name.equals("")) {
+                    System.out.println("Name can't be the same. Try again.");
+                    continue;
                 }
-            } catch (IOException e) {
-                System.out.println("Error writing to file: " + e.getMessage());
+
+                if (userList.contains(pasword) || pasword.equals("")) {
+                    System.out.println("Pasword can't be the same. Try again.");
+                    continue;
+                }
+
+                User user = new User(name, pasword);
+
+                writer.newLine();
+                writer.write(user.toCsvROW());
+
+                System.out.println("User has addet.");
+                break;
             }
-        
+        } catch (IOException e) {
+            System.out.println("Error writing to file: " + e.getMessage());
+        }
+
     }
 }

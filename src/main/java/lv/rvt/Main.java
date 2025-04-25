@@ -21,7 +21,7 @@ https://github.com/rvt-student-demo/java-intro-VadimsMalickis/commit/b3d869dadbe
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        boolean acauntStatus=false;
+        boolean acauntStatus = false;
 
         Scanner scanner = new Scanner(System.in);
         Colors Ui = new Colors();
@@ -39,13 +39,13 @@ public class Main {
             System.out.println("3 - " + Ui.PURPLE("founding"));
             System.out.println("4 - " + Ui.GRAY("Other function"));
             System.out.println("5 - " + Ui.CYAN("Enter in accoun"));
-            System.out.println("6 - by book");// ????????????????????????????????????????????????????????????????
+            System.out.println("6 - by book");
             System.out.println("Ad - admin functions");
 
             System.out.print(": ");
             String commandNumber = scanner.nextLine();
 
-            if (commandNumber.equals("0")) {
+            if (commandNumber.equals("0")) { // Exit the program
                 break;
             }
 
@@ -87,7 +87,7 @@ public class Main {
             readers.close();
             // ===================================================================================================================
 
-            if (commandNumber.equals("1")) {
+            if (commandNumber.equals("1")) { // Check data
                 WorkWithFiles.print(books);
             } else if (commandNumber.equals("2")) {
                 System.out.print("Write down what kind of sorting you want(" + Ui.PURPLE("Name") + ","
@@ -109,15 +109,17 @@ public class Main {
                 WorkWithFiles.otherFunction(books);
             } else if (commandNumber.equals("5")) { // Enter in acaunt
                 System.out.println("0 - Create account");
+                System.out.println("1 - login in");
                 String chuse = scanner.nextLine();
-                if (chus.equals("0")) {
+                if (chuse.equals("0")) {
+                    WorkWithUser.addUser(users);
 
-                    WorkWithUser.print(users);
                 } else if (chuse.equals("1")) {
                     acauntStatus = WorkWithUser.EnterAC(users);
-                }
-            } else if (commandNumber.equals("6")) {
 
+                }
+            } else if (commandNumber.equals("6")) { // by book
+                WorkWithFiles.Bybook(acauntStatus, books);
             } else if (commandNumber.equals("Ad")) {
                 System.out.print("Ievadit parole: ");
                 String pasword = scanner.nextLine();
