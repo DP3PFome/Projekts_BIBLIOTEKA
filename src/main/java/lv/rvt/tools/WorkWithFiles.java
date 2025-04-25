@@ -1,10 +1,7 @@
 package lv.rvt.tools;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,28 +10,49 @@ import java.util.Scanner;
 import lv.rvt.Book;
 
 public class WorkWithFiles {
-    // pievinošana jaunu gramatu
+
+    // Jaunas grāmatas pievienošana
     public static void addBook(List<Book> bookList) {
         Scanner scanner = new Scanner(System.in);
         Colors Ui = new Colors();
+
         try (BufferedWriter writer = Helper.getWriter("data.csv", StandardOpenOption.APPEND)) {
+
             while (true) {
-                System.out.print(Ui.PURPLE("Name: "));
+                System.out.print(Ui.PURPLE("Nosaukums: "));
                 String name = scanner.nextLine();
-                System.out.print(Ui.RED("Author: "));
+
+                System.out.print(Ui.RED("Autors: "));
                 String author = scanner.nextLine();
-                System.out.print(Ui.GREEN("Years: "));
+
+                System.out.print(Ui.GREEN("Gads: "));
                 String year = scanner.nextLine();
+
                 System.out.print(Ui.BLUE("ID: "));
                 String id = scanner.nextLine();
-
-                if (bookList.contains(name)) {
-                    System.out.println("Name can't be the same. Try again.");
+                // parbaude nosaukums
+                boolean duplicateName = false;
+                for (Book book : bookList) {
+                    if (book.getNamae().equals(name)) {
+                        duplicateName = true;
+                        break;
+                    }
+                }
+                if (duplicateName || name.isEmpty()) {
+                    System.out.println(Ui.RED("Nosaukums nedrīkst atkārtoties vai būt tukšs. Mēģini vēlreiz."));
                     continue;
                 }
 
-                if (bookList.contains(id) || id.equals("0")) {
-                    System.out.println("ID can't be the same. Try again.");
+                // parbaude ID
+                boolean duplicateId = false;
+                for (Book book : bookList) {
+                    if (book.getID().equals(id)) {
+                        duplicateId = true;
+                        break;
+                    }
+                }
+                if (duplicateId || id.equals("0")|| id.isEmpty()) {
+                    System.out.println(Ui.RED("ID nedrīkst atkārtoties vai būt 0. Mēģini vēlreiz."));
                     continue;
                 }
 
@@ -43,136 +61,134 @@ public class WorkWithFiles {
                 writer.newLine();
                 writer.write(book.toCsvRow());
 
-                System.out.println("Data successfully saved to file.");
+                System.out.println(Ui.GREEN("Dati veiksmīgi saglabāti failā."));
                 break;
             }
+
         } catch (IOException e) {
-            System.out.println("Error writing to file: " + e.getMessage());
+            System.out.println(Ui.RED("Kļūda rakstot failā: ") + e.getMessage());
         }
     }
 
-    // ----------------------------------------------------------------------------------------------------------
-    // printšana
+    // Grāmatu saraksta izvadīšana
     public static void print(List<Book> bookList) {
-        Colors Ui = new Colors();//
+        Colors Ui = new Colors();
+
         System.out.printf("%-40s %-40s %-20s %-15s%n",
-                Ui.PURPLE("Name"),
-                Ui.RED("Authors"),
-                Ui.GREEN("Years"),
+                Ui.PURPLE("Nosaukums"),
+                Ui.RED("Autors"),
+                Ui.GREEN("Gads"),
                 Ui.BLUE("ID"));
+
         System.out.println(
                 Ui.YELLOW("----------------------------------------------------------------------------------"));
-        for (int i = 0; i < bookList.size(); i++) {
+
+        for (Book book : bookList) {
             System.out.printf("%-40s %-40s %-20s %-15s%n",
-                    Ui.PURPLE(bookList.get(i).getNamae()),
-                    Ui.RED(bookList.get(i).getAuthor()),
-                    Ui.GREEN(bookList.get(i).getYear()),
-                    Ui.BLUE(bookList.get(i).getID()));
-
+                    Ui.PURPLE(book.getNamae()),
+                    Ui.RED(book.getAuthor()),
+                    Ui.GREEN(book.getYear()),
+                    Ui.BLUE(book.getID()));
         }
-
     }
 
-    // -------------------------------------------------------------------------
-    // delite metode
+    // Grāmatas dzēšana
     public static void delete(Book book, List<Book> bookList) throws Exception {
-
+        Colors Ui = new Colors();
         bookList.removeIf(p -> p.equals(book));
 
-        // StandardOpenOption.TRUNCATE_EXISTING - izdzēš visu saturu
         BufferedWriter writer = Helper.getWriter("data.csv", StandardOpenOption.TRUNCATE_EXISTING);
-
-        writer.write("NAME, AUTHOR, YEAR, ID "); // Header row
+        writer.write("NAME, AUTHOR, YEAR, ID ");
         writer.newLine();
 
-        // Pārrakstam failu ar jaunajiem datiem
         for (Book p : bookList) {
             writer.write(p.toCsvRow());
             writer.newLine();
         }
-        System.out.println("Book with ID: " + book.getID() + " was removed");
+
+        System.out.println(Ui.YELLOW("Grāmata ar ID: ") + Ui.BLUE(book.getID()) + Ui.YELLOW(" tika izdzēsta."));
         writer.close();
     }
 
-    // -----------------------------------------------------------------------------------
-    // atbilde par meklešanu
+    // Grāmatas meklēšana
     public static void Founding(List<Book> bookList) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("what you find");
+        Colors Ui = new Colors();
 
+        System.out.print(Ui.CYAN("Ko vēlies meklēt? "));
         List<Book> bookList2 = new ArrayList<>();
 
         String found = scanner.nextLine();
+
         for (Book book : bookList) {
             if (book.getID().contains(found) ||
                     book.getNamae().contains(found) ||
                     book.getAuthor().contains(found) ||
                     book.getYear().contains(found)) {
+
                 bookList2.add(book);
             }
         }
+
         if (bookList2.isEmpty()) {
-            System.out.println("Dont Found");
+            System.out.println(Ui.RED("Netika atrasts neviens rezultāts."));
         } else {
             print(bookList2);
         }
-
     }
 
-    // ------------------------------------------------------------------------------------
-    // papild funkcijas
+    // Papildu funkcijas
     public static void otherFunction(List<Book> bookList) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println();
-        System.out.println();
-        System.out.println();
-        System.out.println("0-go back");
-        System.out.println("1 - How match books");
-        System.out.println("2 - average year of production");
+        Colors Ui = new Colors();
 
-        System.out.print(": ");
+        System.out.println();
+        System.out.println(Ui.YELLOW("0 - Atgriezties"));
+        System.out.println(Ui.CYAN("1 - Grāmatu skaits"));
+        System.out.println(Ui.GREEN("2 - Vidējais izdošanas gads"));
+        System.out.print(Ui.PURPLE(": "));
+
         String commandNumber = scanner.nextLine();
 
         if (commandNumber.equals("0")) {
-
+            return;
         } else if (commandNumber.equals("1")) {
-            System.out.println("In Library: " + bookList.size() + " books");
-
+            System.out.println(Ui.CYAN("Bibliotēkā ir: ") + Ui.GREEN(bookList.size() + " grāmatas"));
         } else if (commandNumber.equals("2")) {
-
             int vid = 0;
-            for (int i = 0; i < bookList.size(); i++) {
-                vid = vid + Integer.parseInt(bookList.get(i).getYear());
+            for (Book book : bookList) {
+                vid += Integer.parseInt(book.getYear());
             }
             vid = vid / bookList.size();
-            System.out.println("average year of production: " + vid);
-
+            System.out.println(Ui.GREEN("Vidējais izdošanas gads: ") + Ui.BLUE(String.valueOf(vid)));
         }
-
     }
 
+    // Grāmatas iegāde
     public static void Bybook(boolean acauntStatus, List<Book> bookList) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Witch book wont buy");
-        System.out.print(": ");
+        Colors Ui = new Colors();
+
+        System.out.print(Ui.CYAN("Kuru grāmatu vēlies iegādāties? "));
         String commandNumber = scanner.nextLine();
 
         if (acauntStatus = true) {
             Book foundBook = null;
+
             for (Book book : bookList) {
                 if (book.getNamae().equals(commandNumber)) {
                     foundBook = book;
-                    System.out.println("Your book " + commandNumber + " has Buy");
+                    System.out.println(Ui.GREEN("Grāmata ") + Ui.PURPLE(commandNumber) + Ui.GREEN(" tika iegādāta."));
                     break;
                 }
             }
+
             if (foundBook == null) {
-                System.out.println("Book not found!");
+                System.out.println(Ui.RED("Grāmata nav atrasta!"));
             }
+
         } else {
-            System.out.println("Enter in acaunt");
+            System.out.println(Ui.RED("Lūdzu, piesakies savā kontā."));
         }
-
     }
-
 }
