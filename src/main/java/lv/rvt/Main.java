@@ -21,7 +21,7 @@ https://github.com/rvt-student-demo/java-intro-VadimsMalickis/commit/b3d869dadbe
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        boolean acauntStatus = false;
+        String acauntStatus = "";
 
         Scanner scanner = new Scanner(System.in);
         Colors Ui = new Colors();

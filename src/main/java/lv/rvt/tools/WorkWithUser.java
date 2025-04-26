@@ -28,7 +28,7 @@ public class WorkWithUser {
     }
 
     // Lietotāja pieteikšanās funkcija
-    public static boolean EnterAC(List<User> userList) {
+    public static String EnterAC(List<User> userList) {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -44,7 +44,7 @@ public class WorkWithUser {
                 if (userList.get(i).getNick().equals(name)) {
                     if (userList.get(i).getPasword().equals(parole)) {
                         System.out.println("Enter in ");
-                        return true;
+                        return name;
                     }
                 }
             }
@@ -56,7 +56,7 @@ public class WorkWithUser {
             }
         }
 
-        return false;
+        return "";
     }
 
     // Jauna lietotāja pievienošana

@@ -1,13 +1,19 @@
 package lv.rvt.tools;
 
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.StandardOpenOption;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 import lv.rvt.Book;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class WorkWithFiles {
 
@@ -51,7 +57,7 @@ public class WorkWithFiles {
                         break;
                     }
                 }
-                if (duplicateId || id.equals("0")|| id.isEmpty()) {
+                if (duplicateId || id.equals("0") || id.isEmpty()) {
                     System.out.println(Ui.RED("ID nedrīkst atkārtoties vai būt 0. Mēģini vēlreiz."));
                     continue;
                 }
@@ -165,30 +171,72 @@ public class WorkWithFiles {
     }
 
     // Grāmatas iegāde
-    public static void Bybook(boolean acauntStatus, List<Book> bookList) {
-        Scanner scanner = new Scanner(System.in);
+   // Grāmatas iegāde
+public static void Bybook(String acauntStatus, List<Book> bookList) {
+
+    Scanner scanner = new Scanner(System.in);
+    Colors Ui = new Colors();
+
+    System.out.print(Ui.CYAN("Kuru grāmatu vēlies iegādāties? "));
+    String commandNumber = scanner.nextLine();
+
+    if (!acauntStatus.isEmpty() && acauntStatus != null) {
+        Book foundBook = null;
+
+        for (Book book : bookList) {
+            if (book.getNamae().equals(commandNumber)) {
+                foundBook = book;
+                System.out.println(Ui.GREEN("Grāmata ") + Ui.PURPLE(commandNumber) + Ui.GREEN(" tika iegādāta."));
+
+                // Saglabājam vēsturi
+                try (BufferedWriter writer = Helper.getWriter("history.csv", StandardOpenOption.APPEND)) {
+                    LocalDateTime now = LocalDateTime.now();
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+                    String formattedNow = now.format(formatter);
+
+                    // Šeit izveidojam ierakstu priekš vēstures
+                    BookBuy bookBuy = new BookBuy(acauntStatus, formattedNow, commandNumber);
+                    System.out.println(formattedNow);
+                    writer.newLine();
+                    writer.write(bookBuy.toCsv());
+
+                } catch (IOException e) {
+                    System.out.println(Ui.RED("Kļūda saglabājot vēsturi: ") + e.getMessage());
+                }
+
+                break;
+            }
+        }
+
+        if (foundBook == null) {
+            System.out.println(Ui.RED("Grāmata nav atrasta!"));
+        }
+
+    } else {
+        System.out.println(Ui.RED("Lūdzu, piesakies savā kontā."));
+    }
+}
+
+
+    public static void PrintHistory(List<BookBuy> PrintHistory){
+         
+
         Colors Ui = new Colors();
 
-        System.out.print(Ui.CYAN("Kuru grāmatu vēlies iegādāties? "));
-        String commandNumber = scanner.nextLine();
+        System.out.printf("%-40s %-40s %-20s%n",
+                Ui.PURPLE("User"),
+                Ui.RED("Date"),
+                Ui.GREEN("Book name"));
 
-        if (acauntStatus = true) {
-            Book foundBook = null;
+        System.out.println(
+                Ui.YELLOW("----------------------------------------------------"));
 
-            for (Book book : bookList) {
-                if (book.getNamae().equals(commandNumber)) {
-                    foundBook = book;
-                    System.out.println(Ui.GREEN("Grāmata ") + Ui.PURPLE(commandNumber) + Ui.GREEN(" tika iegādāta."));
-                    break;
-                }
-            }
-
-            if (foundBook == null) {
-                System.out.println(Ui.RED("Grāmata nav atrasta!"));
-            }
-
-        } else {
-            System.out.println(Ui.RED("Lūdzu, piesakies savā kontā."));
+        for (BookBuy book : PrintHistory) {
+            System.out.printf("%-40s %-40s %-20s%n",
+                    Ui.PURPLE(book.getNamae()),
+                    Ui.RED(book.getdate()),
+                    Ui.GREEN(book.getBookName()));
         }
     }
+    
 }

@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
+import lv.rvt.tools.BookBuy;
 import lv.rvt.tools.Colors;
 import lv.rvt.tools.Helper;
 import lv.rvt.tools.User;
@@ -35,6 +36,7 @@ public class AdminMain {
             System.out.println("5 - " + Ui.PURPLE("founding"));
             System.out.println("6 - " + Ui.GRAY("Other function"));
             System.out.println("7 - Check person");
+            System.out.println("8 - check buying history");
 
             System.out.print(": ");
             String commandNumber = scanner.nextLine();
@@ -43,6 +45,7 @@ public class AdminMain {
                 break; // Iziet no admin režīma
             }
 
+//=====================================================================================================================================
             // Nolasa grāmatas no faila
             BufferedReader reader = Helper.getReader("data.csv");
             List<Book> books = new ArrayList<>();
@@ -60,6 +63,7 @@ public class AdminMain {
 
             reader.close();
 
+//=====================================================================================================================================
             // Nolasa lietotājus no faila
             BufferedReader readers = Helper.getReader("peson.csv");
             List<User> users = new ArrayList<>();
@@ -76,6 +80,26 @@ public class AdminMain {
             }
 
             readers.close();
+
+//=====================================================================================================================================
+            // Nolasa history pirkašana no faila
+            BufferedReader readr = Helper.getReader("history.csv");
+            List<BookBuy> history = new ArrayList<>();
+
+            String lin;
+            readr.readLine(); // izlaiž virsrakstu
+            while ((lin = readr.readLine()) != null) {
+                if (!lin.isEmpty()) {
+                    String[] parts = lin.split(",");
+                    if (parts.length == 3) {
+                        history.add(new BookBuy(parts[0].trim(), parts[1].trim(), parts[2].trim()));
+                    }
+                }
+            }
+
+            readr.close();
+            
+//=====================================================================================================================================
 
             // Komandu apstrāde
             if (commandNumber.equals("1")) {
@@ -134,6 +158,9 @@ public class AdminMain {
                 // Parāda personas datus
                 WorkWithUser.print(users);
 
+            } else if(commandNumber.equals("8")){
+                // paradit nopirksanas vesture
+WorkWithFiles.PrintHistory(history);
             } else {
                 // Nepareiza komanda
                 System.out.println(Ui.RED("Unknown command"));
