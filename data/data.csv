@@ -1,10 +1,21 @@
-NAME, AUTHOR, YEAR, ID 
-1948, J. K. Rowling, 1997, 1
-The notebook, Nicholas Sparks, 1996, 2
-To kill a Mockingberg, Harper Lee, 1960, 3
-1948, George Orwell, 1949, 5
-Yhe hobbit, J.R.R. Tolkien, 1937, 6
-Moby Dick, Herman Melville, 1851, 4
-Adolfs, Adolfs, 1941, 52
-
-asd, zxc, 1234, 59
+NAME,AUTHOR,YEAR,ID
+1948,J. K. Rowling,1997,1
+The Notebook,Nicholas Sparks,1996,2
+To Kill a Mockingbird,Harper Lee,1960,3
+Moby Dick,Herman Melville,1851,4
+1984,George Orwell,1949,5
+The Hobbit,J.R.R. Tolkien,1937,6
+Pride and Prejudice,Jane Austen,1813,7
+The Great Gatsby,F. Scott Fitzgerald,1925,8
+War and Peace,Leo Tolstoy,1869,9
+Crime and Punishment,Fyodor Dostoevsky,1866,10
+Jane Eyre,Charlotte Brontë,1847,11
+Brave New World,Aldous Huxley,1932,12
+Wuthering Heights,Emily Brontë,1847,13
+The Catcher in the Rye,J.D. Salinger,1951,14
+Les Misérables,Victor Hugo,1862,15
+The Lord of the Rings,J.R.R. Tolkien,1954,16
+Dracula,Bram Stoker,1897,17
+Frankenstein,Mary Shelley,1818,18
+Anna Karenina,Leo Tolstoy,1877,19
+Don Quixote,Miguel de Cervantes,1605,20

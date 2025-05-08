@@ -182,7 +182,7 @@ public class WorkWithFiles {
         if (commandNumber.equals("0")) {
             return;
         } else if (commandNumber.equals("1")) {
-            System.out.println(Ui.CYAN("The library has: ") + Ui.GREEN(bookList.size() + " grāmatas"));
+            System.out.println(Ui.CYAN("The library has: ") + Ui.GREEN(bookList.size() + " book"));
         } else if (commandNumber.equals("2")) {
             int vid = 0;
             for (Book book : bookList) {
