@@ -32,7 +32,7 @@ public class WorkWithUser {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
-            System.out.println("0 - exite");
+            System.out.println("0 - return");
 
             System.out.print("Name: ");
             String name = scanner.nextLine();
@@ -90,7 +90,7 @@ public class WorkWithUser {
                 writer.newLine();
                 writer.write(user.toCsvROW());
 
-                System.out.println("User has addet.");
+                System.out.println("User has add.");
                 break;
             }
 

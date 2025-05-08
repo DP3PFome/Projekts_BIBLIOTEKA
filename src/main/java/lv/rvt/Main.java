@@ -1,9 +1,10 @@
 package lv.rvt;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.time.Year;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Scanner;
 
 import lv.rvt.tools.Colors;
 import lv.rvt.tools.Helper;
@@ -37,11 +38,11 @@ public class Main {
             // Izvēlne
             System.out.println("0 - Exit the program");
             System.out.println("1 - " + Ui.BLUE("Check") + " data");
-            System.out.println("2 - " + Ui.YELLOW("sorting"));
-            System.out.println("3 - " + Ui.PURPLE("founding"));
+            System.out.println("2 - " + Ui.YELLOW("Sort by"));
+            System.out.println("3 - " + Ui.PURPLE("Search"));
             System.out.println("4 - " + Ui.GRAY("Other function"));
-            System.out.println("5 - " + Ui.CYAN("Enter in accoun"));
-            System.out.println("6 - by book");
+            System.out.println("5 - " + Ui.CYAN("Enter in account"));
+            System.out.println("6 - Buy book");
             System.out.println("Ad - admin functions");
 
             System.out.print(": ");
@@ -87,18 +88,18 @@ public class Main {
             readers.close();
 
             // Komandu apstrāde
-            if (commandNumber.equals("1")) { 
+            if (commandNumber.equals("1")) {
                 // Parāda visus datus
                 WorkWithFiles.print(books);
 
-            } else if (commandNumber.equals("2")) { 
+            } else if (commandNumber.equals("2")) {
                 // Kārtošana
-                System.out.print("Write down what kind of sorting you want(" +
+                System.out.println("Write down what kind of sorting you want(" +
                         Ui.PURPLE("Name") + "," +
                         Ui.RED("Author") + "," +
                         Ui.GREEN("Year") + "," +
-                        Ui.BLUE("ID") + "): ");
-
+                        Ui.BLUE("ID") + ")if you enter something else, the output is standard");
+                System.out.println(": ");
                 String typesort = scanner.nextLine();
 
                 if (typesort.equals("ID")) {
@@ -113,15 +114,15 @@ public class Main {
 
                 WorkWithFiles.print(books);
 
-            } else if (commandNumber.equals("3")) { 
+            } else if (commandNumber.equals("3")) {
                 // Meklēšana
                 WorkWithFiles.Founding(books);
 
-            } else if (commandNumber.equals("4")) { 
+            } else if (commandNumber.equals("4")) {
                 // Citas funkcijas
                 WorkWithFiles.otherFunction(books);
 
-            } else if (commandNumber.equals("5")) { 
+            } else if (commandNumber.equals("5")) {
                 // Lietotāja pieslēgšanās vai izveide
                 System.out.println("0 - Create account");
                 System.out.println("1 - login in");
@@ -133,17 +134,19 @@ public class Main {
                     acauntStatus = WorkWithUser.EnterAC(users);
                 }
 
-            } else if (commandNumber.equals("6")) { 
+            } else if (commandNumber.equals("6")) {
                 // Pirkšana
                 WorkWithFiles.Bybook(acauntStatus, books);
 
-            } else if (commandNumber.equals("Ad")) { 
+            } else if (commandNumber.equals("Ad")) {
                 // Admin funkcijas
-                System.out.print("Ievadit parole: ");
+                System.out.print("Enter password: ");
                 String pasword = scanner.nextLine();
 
                 if (pasword.equals("zxc")) {
                     AdminMain.main(args);
+                } else {
+                    System.out.println(Ui.RED("Password is incorrect"));
                 }
 
             } else {
